@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital Hoarding — We don't lose data anymore. We drown in it.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #1D9E75;
+      --green-light: #E1F5EE;
+      --green-dark: #085041;
+      --cream: #F5F2EB;
+      --ink: #1a1a18;
+      --muted: #6b6b68;
+      --border: rgba(26,26,24,0.12);
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(245,242,235,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5vw;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-cta {
+      background: var(--green);
+      color: var(--white);
+      border: none;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 5vw 4rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(
+          105deg,
+          rgba(245,242,235,1.0) 0%,
+          rgba(245,242,235,1.0) 35%,
+          rgba(245,242,235,0.75) 55%,
+          rgba(245,242,235,0.10) 75%,
+          rgba(245,242,235,0.0) 100%
+        ),
+        url('https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=1400&q=80&fit=crop') center right / cover no-repeat;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--green);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 6vw, 76px);
+      font-weight: 700;
+      line-height: 1.08;
+      color: var(--ink);
+      max-width: 820px;
+      margin-bottom: 1.75rem;
+    }
+    .hero-headline .accent {
+      color: var(--green);
+      font-style: italic;
+    }
+    .hero-sub {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .btn-primary {
+      background: var(--green);
+      color: var(--white);
+      border: none;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--green-dark); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--muted); }
+    .hero-footnote {
+      margin-top: 3rem;
+      font-size: 12px;
+      color: var(--muted);
+      opacity: 0.7;
+    }
+
+    /* STATS STRIP */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      border-bottom: 1px solid var(--border);
+    }
+    .stat {
+      padding: 2.5rem 5vw;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* SECTIONS */
+    section { padding: 5rem 5vw; border-bottom: 1px solid var(--border); }
+
+    .section-tag {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--green);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--ink);
+      max-width: 640px;
+      margin-bottom: 1.25rem;
+    }
+    .section-body {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    /* PROBLEM — quote scroll */
+    .problem-quotes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 3rem;
+    }
+    .quote-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      position: relative;
+    }
+    .quote-card::before {
+      content: '"';
+      font-family: 'Playfair Display', serif;
+      font-size: 64px;
+      color: var(--green-light);
+      position: absolute;
+      top: -8px;
+      left: 16px;
+      line-height: 1;
+    }
+    .quote-text {
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.7;
+      padding-top: 1.5rem;
+      font-style: italic;
+    }
+
+    /* HOW IT WORKS */
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2px;
+      margin-top: 3rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .how-step {
+      background: var(--white);
+      padding: 2rem;
+    }
+    .how-step:not(:last-child) {
+      border-right: 1px solid var(--border);
+    }
+    .step-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--green-light);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .step-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+    .step-text {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* PROOF */
+    .proof-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 640px) { .proof-layout { grid-template-columns: 1fr; } }
+    .bar-item { margin-bottom: 1.5rem; }
+    .bar-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .bar-desc { font-size: 13px; color: var(--ink); }
+    .bar-pct { font-size: 13px; font-weight: 500; color: var(--green); }
+    .bar-track {
+      height: 5px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      background: var(--green);
+      border-radius: 3px;
+      transition: width 1s ease;
+    }
+    .proof-callout {
+      background: var(--green);
+      border-radius: 12px;
+      padding: 2rem;
+      color: var(--white);
+    }
+    .callout-big {
+      font-family: 'Playfair Display', serif;
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+    .callout-text {
+      font-size: 15px;
+      opacity: 0.85;
+      line-height: 1.6;
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+      background: var(--ink);
+      background-image: radial-gradient(rgba(29,158,117,0.10) 1px, transparent 1px);
+      background-size: 28px 28px;
+      padding: 6rem 5vw;
+      text-align: center;
+      border-bottom: none;
+    }
+    .cta-section .section-tag { color: var(--green); }
+    .cta-section .section-title { color: var(--white); margin: 0 auto 1rem; }
+    .cta-section .section-body { color: rgba(255,255,255,0.55); margin: 0 auto 2.5rem; }
+    .email-form {
+      display: flex;
+      gap: 10px;
+      max-width: 460px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .email-form input[type=email] {
+      flex: 1;
+      min-width: 220px;
+      padding: 13px 18px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+      color: var(--white);
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+    }
+    .email-form input[type=email]::placeholder { color: rgba(255,255,255,0.35); }
+    .email-form input[type=email]:focus { border-color: var(--green); }
+    .email-form button {
+      background: var(--green);
+      color: var(--white);
+      border: none;
+      padding: 13px 26px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: background 0.2s;
+    }
+    .email-form button:hover { background: #5DCAA5; }
+    .cta-note {
+      margin-top: 1rem;
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 1.5rem 5vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: var(--cream);
+    }
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .footer-note { font-size: 12px; color: var(--muted); }
+
+    /* ANIMATIONS */
+    @media (prefers-reduced-motion: no-preference) {
+      .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+      .fade-in.visible { opacity: 1; transform: none; }
+    }
+
+    @media (max-width: 600px) {
+      .how-step:not(:last-child) { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+    }
+
+    /* SOLUTION SPLIT */
+    .solution-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 3rem;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    @media (max-width: 760px) { .solution-split { grid-template-columns: 1fr; } }
+
+    .solution-side {
+      padding: 2.5rem;
+      background: var(--white);
+    }
+    .solution-side--people {
+      background: var(--white);
+      border-top: 4px solid var(--green);
+    }
+    .solution-side--services {
+      background: var(--ink);
+      border-left: 1px solid rgba(255,255,255,0.08);
+      border-top: 4px solid var(--green);
+      background-image: radial-gradient(rgba(29,158,117,0.07) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    @media (max-width: 760px) {
+      .solution-side--services { border-left: none; border-top: 1px solid var(--border); }
+    }
+
+    .solution-badge {
+      display: inline-block;
+      background: var(--green-light);
+      color: var(--green-dark);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 1.25rem;
+    }
+    .solution-badge--dark {
+      background: rgba(29,158,117,0.2);
+      color: #5DCAA5;
+    }
+    .solution-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.6rem;
+    }
+    .solution-side--services .solution-heading { color: var(--white); }
+    .solution-sub {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .solution-side--services .solution-sub { color: rgba(255,255,255,0.45); border-bottom-color: rgba(255,255,255,0.1); }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .feature-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .feature-icon {
+      font-size: 20px;
+      min-width: 32px;
+      margin-top: 2px;
+    }
+    .feature-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .solution-side--services .feature-title { color: var(--white); }
+    .feature-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .solution-side--services .feature-desc { color: rgba(255,255,255,0.45); }
+
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">Digital Hoarding</a>
+  <a class="nav-cta" href="#signup">Get early access</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">A new way to manage your digital life</p>
+  <h1 class="hero-headline">
+    You don't lose data anymore.<br>
+    You <span class="accent">drown</span> in it.
+  </h1>
+  <p class="hero-sub">
+    Every photo, screenshot, and "watch later" felt important in the moment.<br>
+    Now you can't find anything — and you're afraid to delete it.<br>
+    We built the app that helps you breathe again.
+  </p>
+  <div class="hero-actions">
+    <a class="btn-primary" href="#signup">Get early access</a>
+    <a class="btn-ghost" href="#how">See how it works</a>
+  </div>
+  <p class="hero-footnote">Based on research with 43 users · OTH Regensburg, DEPS 2026</p>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat fade-in">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">of users keep photos & videos — and almost never clean them up</div>
+  </div>
+  <div class="stat fade-in">
+    <div class="stat-num">58%</div>
+    <div class="stat-label">already use 50–200 GB of device storage, and it keeps growing</div>
+  </div>
+  <div class="stat fade-in">
+    <div class="stat-num">44%</div>
+    <div class="stat-label">would pay — one-time or subscription — to have their data organized</div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="fade-in">
+  <p class="section-tag">The problem</p>
+  <h2 class="section-title">Everything feels temporarily important — so nothing ever gets resolved.</h2>
+  <p class="section-body">
+    We screenshot. We save. We tell ourselves we'll sort it out later. We never do.
+    The result: thousands of files you can't delete — but also can't find when you actually need them.
+  </p>
+  <div class="problem-quotes">
+    <div class="quote-card">
+      <p class="quote-text">I'll organize this later.<br><em style="opacity:0.5">(never happens)</em></p>
+    </div>
+    <div class="quote-card">
+      <p class="quote-text">I know I saved something like this… it's faster to just Google it again.</p>
+    </div>
+    <div class="quote-card">
+      <p class="quote-text">I can't go through 5,000 photos now. What if this one is actually important?</p>
+    </div>
+    <div class="quote-card">
+      <p class="quote-text">I'll delete the bad ones later. Don't close it — I still need it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION INTRO -->
+<section id="how" class="fade-in">
+  <p class="section-tag">The solution</p>
+  <h2 class="section-title">Two ways to tackle your digital clutter.</h2>
+  <p class="section-body">
+    Whether you're cleaning up your own device or the apps you use every day — we've got you covered.
+    No forced deletion. No anxiety. You stay in control at every step.
+  </p>
+  <div class="solution-split">
+    <div class="solution-side solution-side--people">
+      <div class="solution-badge">Part 1</div>
+      <h3 class="solution-heading">For your device</h3>
+      <p class="solution-sub">A smart companion that lives on your phone and helps you evaluate what's actually worth keeping.</p>
+      <ul class="feature-list">
+        <li class="feature-item">
+          <div class="feature-icon">📸</div>
+          <div>
+            <div class="feature-title">Photos — swipe to archive</div>
+            <div class="feature-desc">Swipe left to archive a photo — it doesn't delete right away. It stays hidden for a set period. If you don't restore it or use it, it's gone. No regret, no pressure.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-icon">📄</div>
+          <div>
+            <div class="feature-title">Documents — preview before deciding</div>
+            <div class="feature-desc">Same swipe system for files. Tap to preview the document first, then decide — keep or archive. Works for PDFs, notes, downloads.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-icon">🔍</div>
+          <div>
+            <div class="feature-title">Background checks</div>
+            <div class="feature-desc">Downloaded something with the same name as an existing file? Duplicate photo detected? A pop-up asks if you want to keep both — no silent overwriting.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-icon">📱</div>
+          <div>
+            <div class="feature-title">Unused apps — with real stats</div>
+            <div class="feature-desc">See which apps you haven't opened in 30, 60 or 90 days — with usage data. Decide what's actually earning its place on your screen.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="solution-side solution-side--services">
+      <div class="solution-badge solution-badge--dark">Part 2</div>
+      <h3 class="solution-heading">For the apps you already use</h3>
+      <p class="solution-sub">An embedded layer that plugs into existing platforms — so you can clean up where the clutter actually lives.</p>
+      <ul class="feature-list">
+        <li class="feature-item">
+          <div class="feature-icon">▶️</div>
+          <div>
+            <div class="feature-title">YouTube Watch Later — finally useful</div>
+            <div class="feature-desc">Our API embeds directly into YouTube's Watch Later. From time to time, a card pops up: "Still interested in watching this?" Swipe to keep or let it go.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-icon">🔗</div>
+          <div>
+            <div class="feature-title">Embedded in your main feed</div>
+            <div class="feature-desc">No need to open a separate app. The nudge appears naturally inside the platform you're already using — non-intrusive, on your schedule.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-icon">🤖</div>
+          <div>
+            <div class="feature-title">AI-powered photo categories</div>
+            <div class="feature-desc">Our AI automatically sorts your photos by category — receipts, screenshots, memories, work — so you can review by topic, not by endless scroll.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="fade-in">
+  <p class="section-tag">Survey results</p>
+  <h2 class="section-title">The data speaks for itself.</h2>
+  <p class="section-body">We surveyed 43 users — students and (young) professionals.</p>
+  <div class="proof-layout">
+    <div>
+      <div class="bar-item">
+        <div class="bar-meta">
+          <span class="bar-desc">Keep photos/videos on device</span>
+          <span class="bar-pct">100%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-meta">
+          <span class="bar-desc">Also keep screenshots</span>
+          <span class="bar-pct">83.7%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:83.7%"></div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-meta">
+          <span class="bar-desc">Find searching old files frustrating</span>
+          <span class="bar-pct">72%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:72%"></div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-meta">
+          <span class="bar-desc">Save YouTube/Instagram content</span>
+          <span class="bar-pct">60.5%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:60.5%"></div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-meta">
+          <span class="bar-desc">Already pay for cloud storage</span>
+          <span class="bar-pct">46.5%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:46.5%"></div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-meta">
+          <span class="bar-desc">Would pay to organize their data</span>
+          <span class="bar-pct">44%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:44%"></div></div>
+      </div>
+    </div>
+    <div>
+      <div class="proof-callout">
+        <div class="callout-big">39.5%</div>
+        <div class="callout-text">value their files for <strong>emotional reasons</strong> — which means they'll never delete anything without feeling safe to do so. Our app meets them there.</div>
+      </div>
+      <div class="proof-callout" style="background:var(--white); border: 1px solid var(--border); margin-top: 16px;">
+        <div class="callout-big" style="color: var(--green); font-size: 36px; margin-bottom: 0.5rem;">51.2%</div>
+        <div class="callout-text" style="color: var(--muted);">would rather <strong style="color:var(--ink)">spend hours manually clearing</strong> their device than pay — which tells us the <em>free tier</em> is our entry point.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="signup">
+  <p class="section-tag">Early access</p>
+  <h2 class="section-title">Be the first to try it.</h2>
+  <p class="section-body">We're looking for people drowning in digital clutter. Leave your email and we'll reach out when the beta is ready.</p>
+  <form class="email-form" onsubmit="handleSignup(event)">
+    <input type="email" placeholder="your@email.com" required />
+    <button type="submit">Notify me</button>
+  </form>
+  <p class="cta-note">No spam. No selling your data. Unsubscribe any time.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-brand">Digital Hoarding</span>
+  <span class="footer-note">Ahmed · David · Henrique · Kateryna · Lisa · Marcos · David · OTH Regensburg 2026</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  function handleSignup(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.textContent = '✓ You\'re on the list!';
+    btn.style.background = '#085041';
+    btn.disabled = true;
+    e.target.querySelector('input').disabled = true;
+  }
+</script>
+</body>
+</html>
